@@ -18,6 +18,7 @@ import Arrow from '../components/ui/Arrow'
 import AutoVideo from '../components/ui/AutoVideo'
 import VideoLightbox from '../components/ui/VideoLightbox'
 import PortfolioButton from '../components/ui/PortfolioButton'
+import HeroHeadline from '../components/ui/HeroHeadline'
 
 /* ═══════════════════════════════════════════════════════════════
    00 — HERO SECTION
@@ -45,17 +46,7 @@ const HeroSection = ({ onOpenReel }) => {
 
         {/* Main headline */}
         <div className="pt-10 md:pt-16">
-          <LineReveal
-            as="h1"
-            animateOnMount
-            delay={0.1}
-            stagger={0.12}
-            className="ym-h1 tracking-tight"
-            lines={[
-              'Creative Ideas.',
-              <span key="l2" className="ym-muted-word">Meaningful Impact.</span>,
-            ]}
-          />
+          <HeroHeadline className="ym-h1 tracking-tight" />
         </div>
 
         {/* Lower composition: description + CTAs (left) & minimal reel preview (right) */}
