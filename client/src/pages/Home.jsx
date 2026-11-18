@@ -655,7 +655,18 @@ const HomeContactSection = () => {
       toast.success("Message sent! We'll get back to you shortly.")
       setForm({ name: '', email: '', phone: '', subject: '', message: '' })
     } catch {
-      toast.error('Failed to send. Please try WhatsApp.')
+      // Direct WhatsApp fallback: instant lead delivery to agency phone
+      const text = encodeURIComponent(
+        `*New Inquiry from Website*\n\n` +
+        `👤 *Name:* ${form.name}\n` +
+        `📧 *Email:* ${form.email}\n` +
+        (form.phone ? `📱 *Phone:* ${form.phone}\n` : '') +
+        (form.subject ? `📌 *Subject:* ${form.subject}\n` : '') +
+        `💬 *Message:* ${form.message}`
+      )
+      window.open(`https://wa.me/917387431481?text=${text}`, '_blank')
+      toast.success("Opening WhatsApp with your inquiry! We'll reply shortly.")
+      setForm({ name: '', email: '', phone: '', subject: '', message: '' })
     } finally {
       setLoading(false)
     }
