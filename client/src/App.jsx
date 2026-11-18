@@ -5,7 +5,7 @@ import { ThemeProvider } from './context/ThemeContext'
 import { AuthProvider } from './context/AuthContext'
 import ScrollToTop from './components/ScrollToTop'
 import Loader from './components/Loader'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 
 // Public Pages
 import Home from './pages/Home'
@@ -34,12 +34,9 @@ import PublicLayout from './components/PublicLayout'
 
 function App() {
   const [loading, setLoading] = useState(true)
-  useEffect(() => {
-    const t = setTimeout(() => setLoading(false), 1800)
-    return () => clearTimeout(t)
-  }, [])
+  const handleFinish = useCallback(() => setLoading(false), [])
 
-  if (loading) return <Loader />
+  if (loading) return <Loader onFinish={handleFinish} />
 
   return (
     <HelmetProvider>
