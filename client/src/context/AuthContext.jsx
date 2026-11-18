@@ -2,7 +2,7 @@ import { createContext, useContext, useState, useEffect } from 'react'
 import axios from 'axios'
 
 const AuthContext = createContext()
-const API = import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
+const API = import.meta.env.VITE_API_URL || '/api'
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
@@ -46,4 +46,4 @@ export const AuthProvider = ({ children }) => {
 }
 
 export const useAuth = () => useContext(AuthContext)
-export const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
+export const API_URL = import.meta.env.VITE_API_URL || '/api'

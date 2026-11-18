@@ -31,17 +31,40 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500).json({ success: false, message: err.message || 'Server error' });
 });
 
-// Connect DB & Start Server
-const PORT = process.env.PORT || 5000;
-mongoose.connect(process.env.MONGODB_URI)
-  .then(() => {
+// Database connection helper (cached for serverless invocations)
+let isConnected = false;
+const connectDB = async () => {
+  if (isConnected || mongoose.connection.readyState >= 1) return;
+  if (!process.env.MONGODB_URI) {
+    console.warn('⚠️  MONGODB_URI is not set in environment variables');
+    return;
+  }
+  try {
+    await mongoose.connect(process.env.MONGODB_URI);
+    isConnected = true;
     console.log('✅ MongoDB connected');
-    app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
-    // Seed if first run
-    require('./seed')();
-  })
-  .catch(err => {
+    try {
+      require('./seed')();
+    } catch (e) {
+      // Seed runs once if DB is empty
+    }
+  } catch (err) {
     console.error('❌ MongoDB connection failed:', err.message);
-    console.log('⚠️  Starting server without DB (API will return errors)');
-    app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT} (no DB)`));
+  }
+};
+
+// Middleware: ensure DB connection is ready before handling API requests
+app.use(async (req, res, next) => {
+  await connectDB();
+  next();
+});
+
+// Start local listener only when run directly (not inside Vercel serverless)
+if (!process.env.VERCEL) {
+  const PORT = process.env.PORT || 5000;
+  connectDB().then(() => {
+    app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
   });
+}
+
+module.exports = app;
