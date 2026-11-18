@@ -297,40 +297,17 @@ const PortfolioShowcaseSection = ({ onOpenReel }) => (
         aside="Every brand has a story. We bring those stories to life through creative campaigns, impactful visuals, strategic branding, and digital experiences."
       />
 
-      {/* Row 1 — Asymmetric 7 / 5 editorial layout */}
-      <div className="mt-16 md:mt-24 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
-        <PortfolioShowcaseCard
-          item={SHOWCASE[0]}
-          index={0}
-          aspect="aspect-[16/11]"
-          className="lg:col-span-7"
-          onSelect={onOpenReel}
-        />
-        <PortfolioShowcaseCard
-          item={SHOWCASE[1]}
-          index={1}
-          aspect="aspect-[4/5]"
-          className="lg:col-span-5 lg:mt-16"
-          onSelect={onOpenReel}
-        />
-      </div>
-
-      {/* Row 2 — Asymmetric 5 / 7 editorial layout */}
-      <div className="mt-8 lg:mt-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
-        <PortfolioShowcaseCard
-          item={SHOWCASE[2]}
-          index={2}
-          aspect="aspect-[4/5]"
-          className="lg:col-span-5"
-          onSelect={onOpenReel}
-        />
-        <PortfolioShowcaseCard
-          item={SHOWCASE[3]}
-          index={3}
-          aspect="aspect-[16/11]"
-          className="lg:col-span-7 lg:mt-12"
-          onSelect={onOpenReel}
-        />
+      {/* Uniform 2×2 Campaign Grid — identical layout & structure */}
+      <div className="mt-16 md:mt-20 grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+        {SHOWCASE.slice(0, 4).map((item, idx) => (
+          <PortfolioShowcaseCard
+            key={item.id}
+            item={item}
+            index={idx}
+            aspect="aspect-[4/3]"
+            onSelect={onOpenReel}
+          />
+        ))}
       </div>
 
       {/* Row 3 — Three vertical 9:16 social reels */}
