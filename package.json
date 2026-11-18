@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "npm --prefix client run build",
-    "dev": "npm --prefix client run dev"
+    "postinstall": "cd client && npm install",
+    "build": "cd client && npm run build",
+    "dev": "cd client && npm run dev"
   }
 }

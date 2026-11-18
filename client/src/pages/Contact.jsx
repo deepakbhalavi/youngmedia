@@ -14,30 +14,24 @@ const Contact = () => {
   const [form, setForm] = useState({ name: '', email: '', phone: '', subject: '', message: '' })
   const [loading, setLoading] = useState(false)
 
-  const handleSubmit = async e => {
+  const handleSubmit = e => {
     e.preventDefault()
     if (!form.name || !form.email || !form.message) return toast.error('Please fill required fields')
     setLoading(true)
-    try {
-      await axios.post(`${API_URL}/contact`, form)
-      toast.success("Message sent! We'll get back to you shortly.")
-      setForm({ name: '', email: '', phone: '', subject: '', message: '' })
-    } catch {
-      // Direct WhatsApp fallback: instant lead delivery to agency phone
-      const text = encodeURIComponent(
-        `*New Inquiry from Website*\n\n` +
-        `👤 *Name:* ${form.name}\n` +
-        `📧 *Email:* ${form.email}\n` +
-        (form.phone ? `📱 *Phone:* ${form.phone}\n` : '') +
-        (form.subject ? `📌 *Subject:* ${form.subject}\n` : '') +
-        `💬 *Message:* ${form.message}`
-      )
-      window.open(`https://wa.me/917387431481?text=${text}`, '_blank')
-      toast.success("Opening WhatsApp with your inquiry! We'll reply shortly.")
-      setForm({ name: '', email: '', phone: '', subject: '', message: '' })
-    } finally {
-      setLoading(false)
-    }
+
+    const text = encodeURIComponent(
+      `*New Inquiry from Young Media Website*\n\n` +
+      `👤 *Name:* ${form.name}\n` +
+      `📧 *Email:* ${form.email}\n` +
+      (form.phone ? `📱 *Phone:* ${form.phone}\n` : '') +
+      (form.subject ? `📌 *Service Needed:* ${form.subject}\n` : '') +
+      `💬 *Message:* ${form.message}`
+    )
+    const whatsappUrl = `https://wa.me/917058322541?text=${text}`
+    window.open(whatsappUrl, '_blank')
+    toast.success("Opening WhatsApp with your inquiry! We'll reply shortly.")
+    setForm({ name: '', email: '', phone: '', subject: '', message: '' })
+    setLoading(false)
   }
 
   return (
