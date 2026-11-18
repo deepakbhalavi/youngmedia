@@ -366,96 +366,13 @@ const PortfolioShowcaseSection = ({ onOpenReel }) => (
 )
 
 /* ═══════════════════════════════════════════════════════════════
-   04 — SELECTED WORK
-═══════════════════════════════════════════════════════════════ */
-const SelectedWorkCard = ({ item, index, onSelect }) => {
-  const [imgErr, setImgErr] = useState(false)
-
-  return (
-    <Reveal delay={(index % 2) * 0.1}>
-      <article
-        onClick={() => onSelect(item)}
-        onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && onSelect(item)}
-        role="button"
-        tabIndex={0}
-        className="group cursor-pointer border-t border-line pt-6"
-      >
-        <div className="flex items-center justify-between text-xs text-muted mb-4">
-          <span className="uppercase tracking-[0.16em] text-ink font-medium">{item.client}</span>
-          <span>{item.category}</span>
-        </div>
-
-        <div className="ym-frame aspect-[16/10] w-full border border-line">
-          {item.type === 'video' ? (
-            <AutoVideo src={item.src} label={item.title} />
-          ) : !imgErr ? (
-            <img
-              src={driveThumb(item.fileId, 1200)}
-              alt={item.title}
-              loading="lazy"
-              onError={() => setImgErr(true)}
-            />
-          ) : (
-            <div className="absolute inset-0 bg-stone flex items-center justify-center p-8 text-center">
-              <p className="font-display text-2xl text-ink">{item.title}</p>
-            </div>
-          )}
-          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500" />
-          <div className="absolute bottom-4 right-4 w-11 h-11 rounded-full bg-white text-ink flex items-center justify-center
-            opacity-90 group-hover:bg-sage transition-all duration-500">
-            <Arrow />
-          </div>
-        </div>
-
-        <div className="mt-6 flex items-start justify-between gap-6">
-          <div>
-            <h3 className="ym-h3 group-hover:translate-x-1 transition-transform duration-500">{item.title}</h3>
-            <p className="mt-2 text-sm text-muted leading-relaxed max-w-xl">{item.description}</p>
-          </div>
-          <span className="ym-link text-sm flex-shrink-0 mt-1">
-            View Project <Arrow />
-          </span>
-        </div>
-      </article>
-    </Reveal>
-  )
-}
-
-const SelectedWorkSection = ({ onOpenReel }) => (
-  <section id="work" className="ym-section ym-anchor bg-white border-b border-line">
-    <div className="ym-container">
-      <SectionHead
-        label="04 — SELECTED WORK"
-        title="Ideas made tangible."
-        aside="Selected brand films, educational productions, and digital campaigns crafted by our team."
-      />
-
-      <div className="mt-16 md:mt-24 grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-14">
-        {SELECTED_WORK.map((item, i) => (
-          <SelectedWorkCard key={item.id} item={item} index={i} onSelect={onOpenReel} />
-        ))}
-      </div>
-
-      <Reveal className="mt-14 pt-8 border-t border-line flex flex-wrap items-center justify-between gap-4">
-        <Link to="/portfolio" className="ym-btn ym-btn-light">
-          View Our Work Archive <Arrow />
-        </Link>
-        <a href={PORTFOLIO_URL} target="_blank" rel="noopener noreferrer" className="ym-link text-sm group">
-          Visit Full Portfolio Website <Arrow />
-        </a>
-      </Reveal>
-    </div>
-  </section>
-)
-
-/* ═══════════════════════════════════════════════════════════════
-   05 — TRUSTED BY (OUR CLIENTS)
+   04 — TRUSTED BY (OUR CLIENTS)
 ═══════════════════════════════════════════════════════════════ */
 const ClientsSection = () => (
-  <section className="ym-section bg-stone border-b border-line">
+  <section className="ym-section bg-white border-b border-line">
     <div className="ym-container">
       <SectionHead
-        label="05 — TRUSTED BY"
+        label="04 — TRUSTED BY"
         title="Partnerships built on trust and craft."
         aside="From startups and local businesses to personal brands, creators, and established companies."
       />
@@ -496,13 +413,13 @@ const ClientsSection = () => (
 )
 
 /* ═══════════════════════════════════════════════════════════════
-   06 — HOW WE WORK (CREATIVE PROCESS)
+   05 — HOW WE WORK (CREATIVE PROCESS)
 ═══════════════════════════════════════════════════════════════ */
 const ProcessSection = () => (
-  <section className="ym-section bg-white border-b border-line">
+  <section className="ym-section bg-stone border-b border-line">
     <div className="ym-container">
       <SectionHead
-        label="06 — HOW WE WORK"
+        label="05 — HOW WE WORK"
         title="From the first idea to the final impact."
         aside="A focused four-stage process that turns business goals into consistent creative output and measurable brand growth."
       />
@@ -533,7 +450,7 @@ const ProcessSection = () => (
    WHY CHOOSE US
 ═══════════════════════════════════════════════════════════════ */
 const WhyChooseUsSection = () => (
-  <section className="ym-section bg-stone border-b border-line">
+  <section className="ym-section bg-white border-b border-line">
     <div className="ym-container">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
         <div className="lg:col-span-5 lg:sticky lg:top-28">
@@ -567,13 +484,13 @@ const WhyChooseUsSection = () => (
 )
 
 /* ═══════════════════════════════════════════════════════════════
-   07 — CLIENT STORIES (TESTIMONIALS)
+   06 — CLIENT STORIES (TESTIMONIALS)
 ═══════════════════════════════════════════════════════════════ */
 const TestimonialsSection = () => (
-  <section className="ym-section bg-white border-b border-line">
+  <section className="ym-section bg-stone border-b border-line">
     <div className="ym-container">
       <SectionHead
-        label="07 — CLIENT STORIES"
+        label="06 — CLIENT STORIES"
         title={['Good work speaks.', 'Great partnerships last.']}
         aside="Genuine words from brands we have partnered with across branding, content, and digital marketing."
       />
@@ -766,7 +683,6 @@ const Home = () => {
       <AboutSection onOpenReel={setActiveReel} />
       <ServicesSection />
       <PortfolioShowcaseSection onOpenReel={setActiveReel} />
-      <SelectedWorkSection onOpenReel={setActiveReel} />
       <ClientsSection />
       <ProcessSection />
       <WhyChooseUsSection />
