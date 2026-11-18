@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion'
 
 export const EASE = [0.22, 1, 0.36, 1]
-const VIEWPORT = { once: true, margin: '0px 0px -12% 0px' }
+const VIEWPORT = { once: true, margin: '0px 0px -8% 0px' }
 
 /** Fade + rise on scroll into view */
-export const Reveal = ({ children, delay = 0, y = 28, className = '', as = 'div', ...rest }) => {
+export const Reveal = ({ children, delay = 0, y = 18, className = '', as = 'div', ...rest }) => {
   const Tag = motion[as] ?? motion.div
   return (
     <Tag
@@ -12,7 +12,7 @@ export const Reveal = ({ children, delay = 0, y = 28, className = '', as = 'div'
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={VIEWPORT}
-      transition={{ duration: 0.9, ease: EASE, delay }}
+      transition={{ duration: 0.42, ease: EASE, delay: delay * 0.45 }}
       {...rest}
     >
       {children}
@@ -21,7 +21,7 @@ export const Reveal = ({ children, delay = 0, y = 28, className = '', as = 'div'
 }
 
 /** Masked line-by-line text reveal. `lines` is an array of strings / nodes. */
-export const LineReveal = ({ lines, as = 'h2', className = '', delay = 0, stagger = 0.1, animateOnMount = false, lineClassName = '' }) => {
+export const LineReveal = ({ lines, as = 'h2', className = '', delay = 0, stagger = 0.05, animateOnMount = false, lineClassName = '' }) => {
   const Tag = as
   const trigger = animateOnMount
     ? { animate: { y: '0%' } }
@@ -34,7 +34,7 @@ export const LineReveal = ({ lines, as = 'h2', className = '', delay = 0, stagge
             className={`block ${lineClassName}`}
             initial={{ y: '105%' }}
             {...trigger}
-            transition={{ duration: 1.05, ease: EASE, delay: delay + i * stagger }}
+            transition={{ duration: 0.48, ease: EASE, delay: delay * 0.45 + i * stagger }}
           >
             {line}
           </motion.span>
@@ -54,7 +54,7 @@ export const MediaReveal = ({ children, className = '', delay = 0, animateOnMoun
       className={className}
       initial={{ clipPath: 'inset(100% 0% 0% 0%)' }}
       {...trigger}
-      transition={{ duration: 1.3, ease: EASE, delay }}
+      transition={{ duration: 0.55, ease: EASE, delay: delay * 0.45 }}
     >
       {children}
     </motion.div>
@@ -69,7 +69,7 @@ export const SectionHead = ({ label, title, aside, className = '' }) => (
       <LineReveal as="h2" className="ym-h2 mt-6 md:mt-8 text-balance" lines={Array.isArray(title) ? title : [title]} />
     </div>
     {aside && (
-      <Reveal delay={0.15} className="lg:col-span-4 lg:pb-3">
+      <Reveal delay={0.1} className="lg:col-span-4 lg:pb-3">
         <p className="ym-lead max-w-md">{aside}</p>
       </Reveal>
     )}

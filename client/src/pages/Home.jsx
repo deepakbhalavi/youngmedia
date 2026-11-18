@@ -36,7 +36,7 @@ const HeroSection = ({ onOpenReel }) => {
         {/* Top meta bar */}
         <motion.div
           className="flex flex-wrap items-center justify-between gap-4 pb-8 md:pb-12 border-b border-line"
-          initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: EASE }}
+          initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35, ease: EASE }}
         >
           <span className="ym-label">INDEPENDENT CREATIVE &amp; DIGITAL AGENCY</span>
           <span className="text-xs text-muted tracking-wider uppercase hidden sm:inline">
@@ -54,16 +54,16 @@ const HeroSection = ({ onOpenReel }) => {
           <div className="lg:col-span-6">
             <motion.p
               className="ym-lead max-w-xl text-ink/80"
-              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.35, ease: EASE }}
+              initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.12, ease: EASE }}
             >
               We build brands, create digital experiences, and craft content that helps businesses connect, communicate, and grow.
             </motion.p>
 
             <motion.div
               className="mt-8 md:mt-10 flex flex-wrap items-center gap-3.5"
-              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.45, ease: EASE }}
+              initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.18, ease: EASE }}
             >
               <a href="#portfolio" onClick={scrollToPortfolio} id="hero-explore-work" className="ym-btn ym-btn-dark">
                 Explore Our Work <Arrow />
@@ -77,7 +77,7 @@ const HeroSection = ({ onOpenReel }) => {
             <motion.div
               className="mt-12 pt-8 border-t border-line grid grid-cols-2 sm:grid-cols-4 gap-6"
               initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-              transition={{ duration: 0.9, delay: 0.6, ease: EASE }}
+              transition={{ duration: 0.45, delay: 0.24, ease: EASE }}
             >
               {STATS.map(s => (
                 <div key={s.label}>
@@ -90,7 +90,7 @@ const HeroSection = ({ onOpenReel }) => {
 
           {/* Minimal creative reel frame — links directly to external portfolio website */}
           <div className="lg:col-span-6">
-            <MediaReveal animateOnMount delay={0.25}>
+            <MediaReveal animateOnMount delay={0.1}>
               <a
                 href={PORTFOLIO_URL}
                 target="_blank"

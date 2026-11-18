@@ -40,7 +40,7 @@ const PublicLayout = () => {
       <Navbar />
 
       {/* Top progress slider bar on route change */}
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="sync">
         <motion.div
           key={`bar-${pathname}`}
           className="fixed left-0 right-0 z-[60] h-[2px] pointer-events-none"
@@ -51,11 +51,11 @@ const PublicLayout = () => {
           }}
           initial={{ scaleX: 0, opacity: 1 }}
           animate={{ scaleX: [0, 1, 1], opacity: [1, 1, 0] }}
-          transition={{ duration: 0.75, times: [0, 0.6, 1], ease: EASE }}
+          transition={{ duration: 0.35, times: [0, 0.6, 1], ease: EASE }}
         />
       </AnimatePresence>
 
-      {/* Full-viewport horizontal curtain slider wipe */}
+      {/* Fast horizontal curtain slider wipe */}
       <AnimatePresence mode="sync">
         <motion.div
           key={`curtain-${pathname}`}
@@ -67,32 +67,29 @@ const PublicLayout = () => {
           }}
           initial={{ scaleX: 1 }}
           animate={{ scaleX: 0 }}
-          transition={{ duration: 0.65, ease: [0.65, 0, 0.35, 1] }}
+          transition={{ duration: 0.28, ease: [0.65, 0, 0.35, 1] }}
         >
           <motion.span
             className="font-display text-xs uppercase tracking-[0.35em] text-white/70"
-            initial={{ opacity: 0.9 }}
+            initial={{ opacity: 0.85 }}
             animate={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.16 }}
           >
             {label}
           </motion.span>
         </motion.div>
       </AnimatePresence>
 
-      {/* Page content directional slide transition */}
+      {/* Snappy directional slide transition (no exit wait delay) */}
       <main className="overflow-x-clip" style={{ paddingTop: 'var(--ym-nav-h)' }}>
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.div
-            key={pathname}
-            initial={{ opacity: 0, x: direction * 72, filter: 'blur(4px)' }}
-            animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
-            exit={{ opacity: 0, x: direction * -48, filter: 'blur(3px)' }}
-            transition={{ duration: 0.55, ease: EASE }}
-          >
-            <Outlet />
-          </motion.div>
-        </AnimatePresence>
+        <motion.div
+          key={pathname}
+          initial={{ opacity: 0, x: direction * 36 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.28, ease: EASE }}
+        >
+          <Outlet />
+        </motion.div>
       </main>
 
       <Footer />
