@@ -9,9 +9,11 @@ const app = express();
 
 // Database connection helper (cached for serverless invocations)
 let isConnected = false;
+let lastDbError = null;
 const connectDB = async () => {
   if (isConnected || mongoose.connection.readyState >= 1) return;
   if (!process.env.MONGODB_URI) {
+    lastDbError = 'MONGODB_URI is not set in environment variables';
     console.warn('⚠️  MONGODB_URI is not set in environment variables');
     return;
   }
@@ -20,6 +22,7 @@ const connectDB = async () => {
       serverSelectionTimeoutMS: 5000,
     });
     isConnected = true;
+    lastDbError = null;
     console.log('✅ MongoDB connected');
     try {
       await require('./seed')();
@@ -27,6 +30,7 @@ const connectDB = async () => {
       console.warn('Seed notice:', e.message);
     }
   } catch (err) {
+    lastDbError = err.message;
     console.error('❌ MongoDB connection failed:', err.message);
   }
 };
@@ -38,7 +42,19 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
 // Health check (does not require DB)
-app.get('/api/health', (req, res) => res.json({ status: 'OK', message: 'YMMarketing API running', dbConnected: mongoose.connection.readyState === 1 }));
+app.get('/api/health', async (req, res) => {
+  if (!isConnected && process.env.MONGODB_URI) {
+    await connectDB();
+  }
+  res.json({
+    status: 'OK',
+    message: 'YMMarketing API running',
+    dbConnected: mongoose.connection.readyState === 1,
+    hasMongoUri: !!process.env.MONGODB_URI,
+    mongoUriPrefix: process.env.MONGODB_URI ? process.env.MONGODB_URI.substring(0, 16) + '...' : 'NOT_SET',
+    lastDbError
+  });
+});
 
 // Database connection middleware: runs before all API endpoints
 app.use(async (req, res, next) => {
