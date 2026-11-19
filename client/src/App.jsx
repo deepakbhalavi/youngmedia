@@ -5,7 +5,7 @@ import { ThemeProvider } from './context/ThemeContext'
 import { AuthProvider } from './context/AuthContext'
 import ScrollToTop from './components/ScrollToTop'
 import Loader from './components/Loader'
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useCallback } from 'react'
 
 // Public Pages
 import Home from './pages/Home'
@@ -33,11 +33,20 @@ import ProtectedRoute from './admin/ProtectedRoute'
 import PublicLayout from './components/PublicLayout'
 
 function App() {
-  const [loading, setLoading] = useState(true)
-  const handleFinish = useCallback(() => setLoading(false), [])
+  // 'intro' → logo animation only | 'reveal' → site mounts under splitting panels | 'done'
+  const [stage, setStage] = useState('intro')
+  const handleReveal = useCallback(() => setStage('reveal'), [])
+  const handleFinish = useCallback(() => setStage('done'), [])
 
-  if (loading) return <Loader onFinish={handleFinish} />
+  return (
+    <>
+      {stage !== 'done' && <Loader onReveal={handleReveal} onFinish={handleFinish} />}
+      {stage !== 'intro' && <Site />}
+    </>
+  )
+}
 
+function Site() {
   return (
     <HelmetProvider>
       <ThemeProvider>
