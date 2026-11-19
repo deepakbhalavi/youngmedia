@@ -1,24 +1,19 @@
 import { Outlet, useLocation } from 'react-router-dom'
 import { MotionConfig, motion, AnimatePresence } from 'framer-motion'
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import Navbar from './Navbar'
 import Footer from './Footer'
 import WhatsAppButton from './WhatsAppButton'
 
-const EASE = [0.22, 1, 0.36, 1]
+// Silk-smooth agency easing curve
+const SMOOTH_EASE = [0.16, 1, 0.3, 1]
+
 const ROUTE_ORDER = ['/', '/about', '/services', '/portfolio', '/testimonials', '/blog', '/contact']
 
 const getRouteIndex = pathname => {
   if (pathname.startsWith('/blog')) return ROUTE_ORDER.indexOf('/blog')
   const idx = ROUTE_ORDER.indexOf(pathname)
   return idx === -1 ? 0 : idx
-}
-
-const getRouteLabel = pathname => {
-  if (pathname === '/') return 'Home'
-  if (pathname.startsWith('/blog')) return 'Journal'
-  const clean = pathname.replace(/^\//, '').split('/')[0]
-  return clean.charAt(0).toUpperCase() + clean.slice(1)
 }
 
 const PublicLayout = () => {
@@ -29,67 +24,61 @@ const PublicLayout = () => {
   const currIdx = getRouteIndex(pathname)
   const direction = currIdx >= prevIdx ? 1 : -1
 
-  if (prevPathRef.current !== pathname) {
+  useEffect(() => {
     prevPathRef.current = pathname
-  }
-
-  const label = getRouteLabel(pathname)
+  }, [pathname])
 
   return (
     <MotionConfig reducedMotion="user">
       <Navbar />
 
-      {/* Top progress slider bar on route change */}
-      <AnimatePresence mode="sync">
+      {/* Silky slim progress accent line on page change */}
+      <AnimatePresence mode="wait">
         <motion.div
           key={`bar-${pathname}`}
-          className="fixed left-0 right-0 z-[60] h-[2px] pointer-events-none"
+          className="fixed left-0 right-0 z-[60] h-[2.5px] pointer-events-none"
           style={{
             top: 'var(--ym-nav-h)',
-            background: 'linear-gradient(90deg, #111111 0%, #8FA37A 50%, #B8C6A5 100%)',
-            transformOrigin: direction >= 0 ? 'left' : 'right',
+            background: 'linear-gradient(90deg, #8FA37A 0%, #B8C6A5 50%, #111111 100%)',
           }}
-          initial={{ scaleX: 0, opacity: 1 }}
-          animate={{ scaleX: [0, 1, 1], opacity: [1, 1, 0] }}
-          transition={{ duration: 0.35, times: [0, 0.6, 1], ease: EASE }}
+          initial={{ scaleX: 0, transformOrigin: direction >= 0 ? '0% 50%' : '100% 50%', opacity: 1 }}
+          animate={{ scaleX: [0, 0.7, 1], opacity: [1, 1, 0] }}
+          transition={{ duration: 0.5, times: [0, 0.7, 1], ease: SMOOTH_EASE }}
         />
       </AnimatePresence>
 
-      {/* Fast horizontal curtain slider wipe */}
-      <AnimatePresence mode="sync">
-        <motion.div
-          key={`curtain-${pathname}`}
-          aria-hidden="true"
-          className="fixed inset-0 z-[55] pointer-events-none flex items-center justify-center"
-          style={{
-            background: '#111111',
-            transformOrigin: direction >= 0 ? 'right' : 'left',
-          }}
-          initial={{ scaleX: 1 }}
-          animate={{ scaleX: 0 }}
-          transition={{ duration: 0.28, ease: [0.65, 0, 0.35, 1] }}
-        >
-          <motion.span
-            className="font-display text-xs uppercase tracking-[0.35em] text-white/70"
-            initial={{ opacity: 0.85 }}
-            animate={{ opacity: 0 }}
-            transition={{ duration: 0.16 }}
-          >
-            {label}
-          </motion.span>
-        </motion.div>
-      </AnimatePresence>
-
-      {/* Snappy directional slide transition (no exit wait delay) */}
+      {/* Butter-smooth page slide transition without harsh black flashes */}
       <main className="overflow-x-clip" style={{ paddingTop: 'var(--ym-nav-h)' }}>
-        <motion.div
-          key={pathname}
-          initial={{ opacity: 0, x: direction * 36 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.28, ease: EASE }}
-        >
-          <Outlet />
-        </motion.div>
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={pathname}
+            initial={{
+              opacity: 0,
+              x: direction * 45,
+              y: 8,
+            }}
+            animate={{
+              opacity: 1,
+              x: 0,
+              y: 0,
+              transition: {
+                duration: 0.45,
+                ease: SMOOTH_EASE,
+              },
+            }}
+            exit={{
+              opacity: 0,
+              x: direction * -35,
+              y: -4,
+              transition: {
+                duration: 0.28,
+                ease: [0.4, 0, 1, 1],
+              },
+            }}
+          >
+            <Outlet />
+          </motion.div>
+        </AnimatePresence>
       </main>
 
       <Footer />
