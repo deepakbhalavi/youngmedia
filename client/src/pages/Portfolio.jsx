@@ -22,7 +22,7 @@ const Portfolio = () => {
       <section className="ym-section bg-white border-b border-line pt-16 md:pt-24">
         <div className="ym-container">
           <div className="flex flex-wrap items-center justify-between gap-4">
-            <Reveal><span className="ym-label">04 — OUR WORK</span></Reveal>
+            <span className="ym-label">04 — OUR WORK</span>
             <a href={PORTFOLIO_URL} target="_blank" rel="noopener noreferrer" className="ym-link text-xs uppercase tracking-[0.16em] group">
               Full Portfolio Experience <Arrow />
             </a>
@@ -38,12 +38,12 @@ const Portfolio = () => {
             ]}
           />
 
-          <Reveal delay={0.2} className="mt-8 flex flex-col md:flex-row md:items-end justify-between gap-8">
+          <div className="mt-8 flex flex-col md:flex-row md:items-end justify-between gap-8">
             <p className="ym-lead max-w-2xl">
               Every brand has a story. We bring those stories to life through creative campaigns, impactful visuals, strategic branding, and digital experiences.
             </p>
             <PortfolioButton label="Explore Our Creative Universe" />
-          </Reveal>
+          </div>
         </div>
       </section>
 

@@ -35,7 +35,7 @@ const About = () => {
       {/* Hero */}
       <section className="ym-section bg-white border-b border-line pt-16 md:pt-24">
         <div className="ym-container">
-          <Reveal><span className="ym-label">01 — WHO WE ARE</span></Reveal>
+          <span className="ym-label">01 — WHO WE ARE</span>
           <LineReveal
             as="h1"
             animateOnMount
@@ -47,7 +47,7 @@ const About = () => {
           />
 
           <div className="mt-14 md:mt-20 grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
-            <Reveal className="lg:col-span-6 space-y-5">
+            <div className="lg:col-span-6 space-y-5">
               <p className="ym-lead text-ink">
                 Young Media Marketing is a creative marketing agency focused on helping businesses build stronger identities, create impactful content, and grow their digital presence.
               </p>
@@ -61,26 +61,24 @@ const About = () => {
                   Portfolio Website <Arrow />
                 </a>
               </div>
-            </Reveal>
+            </div>
 
             <div className="lg:col-span-6">
-              <MediaReveal animateOnMount delay={0.2}>
-                <div
-                  onClick={() => setActiveReel({ ...SHOWCASE[0], type: 'video' })}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && setActiveReel({ ...SHOWCASE[0], type: 'video' })}
-                  className="group cursor-pointer"
-                >
-                  <div className="ym-frame aspect-[16/10] border border-line">
-                    <AutoVideo src={SHOWCASE[0].src} label={SHOWCASE[0].title} />
-                  </div>
-                  <div className="mt-3 flex items-center justify-between text-xs text-muted">
-                    <span>Young Media Studio — Nagpur, India (Est. {BRAND.since})</span>
-                    <span className="text-ink inline-flex items-center gap-1">Play Reel <Arrow /></span>
-                  </div>
+              <div
+                onClick={() => setActiveReel({ ...SHOWCASE[0], type: 'video' })}
+                role="button"
+                tabIndex={0}
+                onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && setActiveReel({ ...SHOWCASE[0], type: 'video' })}
+                className="group cursor-pointer"
+              >
+                <div className="ym-frame aspect-[16/10] border border-line">
+                  <AutoVideo src={SHOWCASE[0].src} label={SHOWCASE[0].title} />
                 </div>
-              </MediaReveal>
+                <div className="mt-3 flex items-center justify-between text-xs text-muted">
+                  <span>Young Media Studio — Nagpur, India (Est. {BRAND.since})</span>
+                  <span className="text-ink inline-flex items-center gap-1">Play Reel <Arrow /></span>
+                </div>
+              </div>
             </div>
           </div>
 

@@ -13,7 +13,7 @@ const Testimonials = () => (
 
     <section className="ym-section bg-white border-b border-line pt-16 md:pt-24">
       <div className="ym-container">
-        <Reveal><span className="ym-label">07 — CLIENT STORIES</span></Reveal>
+        <span className="ym-label">07 — CLIENT STORIES</span>
         <LineReveal
           as="h1"
           animateOnMount
@@ -23,11 +23,11 @@ const Testimonials = () => (
             <span key="l2" className="ym-muted-word">Great partnerships last.</span>,
           ]}
         />
-        <Reveal delay={0.2} className="mt-6 max-w-xl">
+        <div className="mt-6 max-w-xl">
           <p className="ym-lead">
             Genuine reviews from brands who partnered with Young Media Marketing across branding, content, and digital strategy.
           </p>
-        </Reveal>
+        </div>
 
         <div className="mt-16 md:mt-24 ym-hairline-grid grid-cols-1 lg:grid-cols-3">
           {TESTIMONIALS.map((t, i) => (

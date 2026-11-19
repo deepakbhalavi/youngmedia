@@ -44,7 +44,7 @@ const Contact = () => {
       {/* Hero */}
       <section className="ym-section bg-white border-b border-line pt-16 md:pt-24">
         <div className="ym-container">
-          <Reveal><span className="ym-label">CONTACT</span></Reveal>
+          <span className="ym-label">CONTACT</span>
           <LineReveal
             as="h1"
             animateOnMount
@@ -54,11 +54,11 @@ const Contact = () => {
               <span key="l2" className="ym-muted-word">Let&apos;s make it happen.</span>,
             ]}
           />
-          <Reveal delay={0.2} className="mt-6 max-w-xl">
+          <div className="mt-6 max-w-xl">
             <p className="ym-lead">
               Have an idea, a business, or a brand ready to grow? We&apos;d love to hear from you.
             </p>
-          </Reveal>
+          </div>
 
           <div className="mt-16 md:mt-24 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
             {/* Sidebar */}

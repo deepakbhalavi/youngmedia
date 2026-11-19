@@ -19,7 +19,7 @@ const Services = () => {
       {/* Hero */}
       <section className="ym-section bg-white border-b border-line pt-16 md:pt-24">
         <div className="ym-container">
-          <Reveal><span className="ym-label">02 — WHAT WE DO</span></Reveal>
+          <span className="ym-label">02 — WHAT WE DO</span>
           <LineReveal
             as="h1"
             animateOnMount
@@ -29,11 +29,11 @@ const Services = () => {
               <span key="l2" className="ym-muted-word">Strategic execution.</span>,
             ]}
           />
-          <Reveal delay={0.2} className="mt-8 max-w-2xl">
+          <div className="mt-8 max-w-2xl">
             <p className="ym-lead">
               Everything your brand needs to build a distinct identity, craft high-impact content, and achieve measurable digital growth.
             </p>
-          </Reveal>
+          </div>
 
           {/* Core 6 pillars */}
           <div className="mt-16 md:mt-24 ym-hairline-grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">

@@ -24,21 +24,15 @@ export const Reveal = ({ children, delay = 0, y = 18, className = '', as = 'div'
 export const LineReveal = ({ lines, as = 'h2', className = '', delay = 0, stagger = 0.04, animateOnMount = false, lineClassName = '' }) => {
   const Tag = as
 
-  // On page mount (e.g. Hero headlines), use a smooth fade + gentle rise without
-  // overflow-clipping masks to prevent text glitching/slicing during page transitions.
+  // On page mount (e.g. Hero headlines), render solid typography so it transitions
+  // in perfect unison with the page slide without any clashing delays or mask clipping.
   if (animateOnMount) {
     return (
       <Tag className={className}>
         {lines.map((line, i) => (
-          <motion.span
-            key={i}
-            className={`block ${lineClassName}`}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.42, ease: EASE, delay: delay * 0.3 + i * stagger }}
-          >
+          <span key={i} className={`block ${lineClassName}`}>
             {line}
-          </motion.span>
+          </span>
         ))}
       </Tag>
     )

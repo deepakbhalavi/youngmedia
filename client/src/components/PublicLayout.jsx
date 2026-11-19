@@ -47,7 +47,7 @@ const PublicLayout = () => {
         />
       </AnimatePresence>
 
-      {/* Butter-smooth page slide transition without harsh black flashes */}
+      {/* Butter-smooth page slide transition: instant mount, zero exit delay, zero blank flash */}
       <main
         className="overflow-x-clip"
         style={{
@@ -55,34 +55,24 @@ const PublicLayout = () => {
           minHeight: 'calc(100vh - var(--ym-nav-h))',
         }}
       >
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.div
-            key={pathname}
-            initial={{
-              opacity: 0,
-              x: direction * 24,
-            }}
-            animate={{
-              opacity: 1,
-              x: 0,
-              transition: {
-                duration: 0.35,
-                ease: SMOOTH_EASE,
-              },
-            }}
-            exit={{
-              opacity: 0,
-              x: direction * -18,
-              transition: {
-                duration: 0.18,
-                ease: [0.4, 0, 1, 1],
-              },
-            }}
-            style={{ willChange: 'transform, opacity' }}
-          >
-            <Outlet />
-          </motion.div>
-        </AnimatePresence>
+        <motion.div
+          key={pathname}
+          initial={{
+            opacity: 0,
+            x: direction * 32,
+          }}
+          animate={{
+            opacity: 1,
+            x: 0,
+          }}
+          transition={{
+            duration: 0.32,
+            ease: SMOOTH_EASE,
+          }}
+          style={{ willChange: 'transform, opacity' }}
+        >
+          <Outlet />
+        </motion.div>
       </main>
 
       <Footer />

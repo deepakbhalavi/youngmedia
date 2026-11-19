@@ -28,7 +28,7 @@ const Blog = () => {
 
       <section className="ym-section bg-white border-b border-line pt-16 md:pt-24">
         <div className="ym-container">
-          <Reveal><span className="ym-label">JOURNAL</span></Reveal>
+          <span className="ym-label">JOURNAL</span>
           <LineReveal
             as="h1"
             animateOnMount
