@@ -21,11 +21,30 @@ export const Reveal = ({ children, delay = 0, y = 18, className = '', as = 'div'
 }
 
 /** Masked line-by-line text reveal. `lines` is an array of strings / nodes. */
-export const LineReveal = ({ lines, as = 'h2', className = '', delay = 0, stagger = 0.05, animateOnMount = false, lineClassName = '' }) => {
+export const LineReveal = ({ lines, as = 'h2', className = '', delay = 0, stagger = 0.04, animateOnMount = false, lineClassName = '' }) => {
   const Tag = as
-  const trigger = animateOnMount
-    ? { animate: { y: '0%' } }
-    : { whileInView: { y: '0%' }, viewport: VIEWPORT }
+
+  // On page mount (e.g. Hero headlines), use a smooth fade + gentle rise without
+  // overflow-clipping masks to prevent text glitching/slicing during page transitions.
+  if (animateOnMount) {
+    return (
+      <Tag className={className}>
+        {lines.map((line, i) => (
+          <motion.span
+            key={i}
+            className={`block ${lineClassName}`}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.42, ease: EASE, delay: delay * 0.3 + i * stagger }}
+          >
+            {line}
+          </motion.span>
+        ))}
+      </Tag>
+    )
+  }
+
+  // On scroll into view, use masked line-by-line reveal for lower content sections
   return (
     <Tag className={className}>
       {lines.map((line, i) => (
@@ -33,7 +52,8 @@ export const LineReveal = ({ lines, as = 'h2', className = '', delay = 0, stagge
           <motion.span
             className={`block ${lineClassName}`}
             initial={{ y: '105%' }}
-            {...trigger}
+            whileInView={{ y: '0%' }}
+            viewport={VIEWPORT}
             transition={{ duration: 0.48, ease: EASE, delay: delay * 0.45 + i * stagger }}
           >
             {line}
@@ -44,16 +64,27 @@ export const LineReveal = ({ lines, as = 'h2', className = '', delay = 0, stagge
   )
 }
 
-/** Image / video reveal: clip from bottom with subtle scale settle */
+/** Image / video reveal: smooth GPU transform on mount, bottom-clip on scroll */
 export const MediaReveal = ({ children, className = '', delay = 0, animateOnMount = false }) => {
-  const trigger = animateOnMount
-    ? { animate: { clipPath: 'inset(0% 0% 0% 0%)' } }
-    : { whileInView: { clipPath: 'inset(0% 0% 0% 0%)' }, viewport: VIEWPORT }
+  if (animateOnMount) {
+    return (
+      <motion.div
+        className={className}
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.45, ease: EASE, delay: delay * 0.35 }}
+      >
+        {children}
+      </motion.div>
+    )
+  }
+
   return (
     <motion.div
       className={className}
       initial={{ clipPath: 'inset(100% 0% 0% 0%)' }}
-      {...trigger}
+      whileInView={{ clipPath: 'inset(0% 0% 0% 0%)' }}
+      viewport={VIEWPORT}
       transition={{ duration: 0.55, ease: EASE, delay: delay * 0.45 }}
     >
       {children}

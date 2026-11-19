@@ -10,7 +10,7 @@ const AnimatedLine = ({ text, startDelay = 0, charDelay = 0.015, className = '',
   return (
     <span className={`relative block ${className}`}>
       {words.map((word, wi) => (
-        <span key={wi} className="inline-block whitespace-nowrap overflow-hidden align-bottom pb-[0.08em] pt-[0.2em] -mt-[0.2em]">
+        <span key={wi} className="inline-block whitespace-nowrap align-bottom pb-[0.08em] pt-[0.2em] -mt-[0.2em]">
           {word.split('').map((ch, ci) => {
             const delay = startDelay + charIndex++ * charDelay
             return (
@@ -18,9 +18,9 @@ const AnimatedLine = ({ text, startDelay = 0, charDelay = 0.015, className = '',
                 key={ci}
                 className="inline-block cursor-default"
                 style={{ color: baseColor }}
-                initial={{ y: '105%', opacity: 0, filter: 'blur(4px)' }}
-                animate={{ y: '0%', opacity: 1, filter: 'blur(0px)' }}
-                transition={{ duration: 0.36, ease: EASE, delay }}
+                initial={{ y: '25%', opacity: 0 }}
+                animate={{ y: '0%', opacity: 1 }}
+                transition={{ duration: 0.32, ease: EASE, delay }}
                 whileHover={{ y: '-14%', scale: 1.07, color: hoverColor, transition: HOVER_SPRING }}
               >
                 {ch}

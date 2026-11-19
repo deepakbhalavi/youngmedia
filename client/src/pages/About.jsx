@@ -39,7 +39,7 @@ const About = () => {
           <LineReveal
             as="h1"
             animateOnMount
-            className="ym-h1 mt-6 max-w-5xl text-balance"
+            className="ym-h1 mt-6 max-w-5xl"
             lines={[
               'We turn ambitious ideas',
               <span key="l2" className="ym-muted-word">into meaningful brand experiences.</span>,
