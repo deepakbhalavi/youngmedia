@@ -98,18 +98,30 @@ const HeroSection = ({ onOpenReel }) => {
                 className="group relative w-full text-left block"
                 aria-label="Open Young Media Portfolio website in a new tab"
               >
-                <div className="ym-frame aspect-[16/10] w-full border border-line">
+                <div className="ym-frame aspect-[16/10] w-full border border-line overflow-hidden shadow-lg">
                   <AutoVideo src={SHOWCASE[0].src} label={SHOWCASE[0].title} />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
-                  <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 flex items-end justify-between gap-4 text-white">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/15 to-transparent pointer-events-none" />
+                  <div className="absolute bottom-3 left-3 right-3 sm:bottom-5 sm:left-5 sm:right-5 flex items-end justify-between gap-4 text-white">
                     <div>
-                      <span className="inline-block text-[10px] uppercase tracking-[0.2em] text-white/75 mb-1">
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] uppercase tracking-[0.18em] font-medium text-white/90 mb-1.5 backdrop-blur-md bg-white/15 border border-white/25 shadow-sm">
+                        <span className="w-1.5 h-1.5 rounded-full bg-sage animate-pulse" />
                         Featured Reel — 01
                       </span>
-                      <p className="font-display text-base sm:text-lg font-medium">{SHOWCASE[0].title}</p>
+                      <p className="font-display text-base sm:text-lg font-medium text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
+                        {SHOWCASE[0].title}
+                      </p>
                     </div>
-                    <span className="inline-flex items-center gap-2 rounded-full bg-white/95 text-ink px-4 py-2 text-xs font-medium
-                      transition-colors duration-300 group-hover:bg-sage">
+
+                    {/* Transparent Glossy Glass Pill Button */}
+                    <span
+                      className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-medium text-white
+                        bg-gradient-to-b from-white/30 via-white/15 to-white/10
+                        group-hover:from-white/45 group-hover:via-white/25 group-hover:to-white/15
+                        backdrop-blur-xl border border-white/40 group-hover:border-white/70
+                        shadow-[inset_0_1.5px_1.5px_0_rgba(255,255,255,0.85),0_8px_24px_rgba(0,0,0,0.35)]
+                        group-hover:shadow-[inset_0_2px_2px_0_rgba(255,255,255,1),0_12px_32px_rgba(0,0,0,0.45)]
+                        transition-all duration-300 group-hover:scale-105"
+                    >
                       View Portfolio <Arrow />
                     </span>
                   </div>
